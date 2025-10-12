@@ -26,16 +26,15 @@ export class Login {
     this.successMessage = '';
 
     this.authService.login(this.username, this.password).subscribe({
-      next: () => {
+          next: () => {
+            this.successMessage = 'Login Bem-Sucedido! Redirecionando...';
 
-        this.successMessage = 'Login Bem-Sucedido! Redirecionando...';
-
-        setTimeout(() => {
-          this.router.navigate(['/dashboard']);
-        }, this.redirectDelay);
-      },
-      error: () => {
-        this.errorMessage = 'Usuário ou senha incorretos';
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, this.redirectDelay);
+          },
+          error: () => {
+            this.errorMessage = 'Usuário ou senha incorretos';
       }
     });
   }

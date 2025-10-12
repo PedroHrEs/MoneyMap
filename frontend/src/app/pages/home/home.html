@@ -1,0 +1,15 @@
+<div class="home-container">
+  <h2>Bem-vindo(a) ao MoneyMap!</h2>
+  <p>Selecione uma opção para começar a gerenciar suas finanças:</p>
+
+  <div class="options-grid">
+    <a *ngFor="let opcao of opcoes"
+       [routerLink]="opcao.rota"
+       class="option-card">
+      <span class="option-icon">{{ opcao.icone }}</span>
+      <div class="option-name">{{ opcao.nome }}</div>
+    </a>
+  </div>
+
+  <button class="logout-btn">Sair</button>
+</div>

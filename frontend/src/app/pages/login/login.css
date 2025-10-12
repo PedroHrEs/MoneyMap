@@ -40,3 +40,23 @@ button {
   text-align: center;
   margin-top: 10px;
 }
+
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-weight: bold;
+}

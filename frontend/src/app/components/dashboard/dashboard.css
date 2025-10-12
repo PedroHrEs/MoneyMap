@@ -1,0 +1,58 @@
+.dashboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+h2 {
+    color: #007bff;
+    border-bottom: 2px solid #e0e6ed;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+}
+.loading {
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+.error-message {
+    padding: 15px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.empty-state {
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    color: #495057;
+    border: 2px dashed #ced4da;
+    border-radius: 8px;
+    font-size: 1.1em;
+}
+.data-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.data-list li {
+    background-color: #ffffff;
+    border: 1px solid #e0e6ed;
+    border-left: 5px solid #007bff;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+}
