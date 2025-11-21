@@ -1,61 +1,50 @@
-<div class="lancamento-list-container">
-  <h2>Listagem de Lançamentos</h2>
+<div class="page-container">
+  <h2>Lançamentos</h2>
 
-  <div class="header-actions">
-    <a [routerLink]="['/cadastro-lancamento']" class="btn btn-primary">
-      + Novo Lançamento
-    </a>
-  </div>
+  <input
+    type="text"
+    placeholder="Buscar descrição..."
+    [(ngModel)]="searchTerm"
+    class="search-input"
+  />
 
-  <div *ngIf="carregando" class="loading">Carregando dados...</div>
-  <div *ngIf="erro" class="error-message">Erro: {{ erro }}</div>
-  <div *ngIf="!carregando && lancamentos.length === 0" class="empty-state">
-    Nenhum lançamento foi encontrado no sistema.
-  </div>
+  <table class="list-table large-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descrição</th>
+      <th>Parcela</th>
+      <th>Data Lançamento</th>
+      <th>Vencimento</th>
+      <th>Valor</th>
+      <th>Pessoa</th>
+      <th>Conta</th>
+      <th>Centro Custo</th>
+      <th>Tipo</th>
+      <th>Situação</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
 
-  <div class="table-responsive" *ngIf="lancamentos.length > 0 && !carregando">
-    <table>
-      <thead>
-      <tr>
-        <th>Descrição</th>
-        <th>Vencimento</th>
-        <th>Valor</th>
-        <th>Pessoa</th>
-        <th>C. Custo</th>
-        <th>Tipo</th>
-        <th>Situação</th>
-        <th>Ações</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let l of lancamentos">
-        <td>{{ l.descricao }} ({{ l.parcela }})</td>
+    <tbody>
+    <tr *ngFor="let l of lancamentos">
+      <td>{{ l.id }}</td>
+      <td>{{ l.descricao }}</td>
+      <td>{{ l.parcela }}</td>
+      <td>{{ l.dataLancamento | date:'dd/MM/yyyy' }}</td>
+      <td>{{ l.dataVencimento | date:'dd/MM/yyyy' }}</td>
+      <td>{{ l.valorDocumento | currency:'BRL' }}</td>
+      <td>{{ l.pessoa.razaoSocial }}</td>
+      <td>{{ l.conta.descricao }}</td>
+      <td>{{ l.centroCusto.descricao }}</td>
+      <td>{{ l.tipoLancamento }}</td>
+      <td>{{ l.situacao }}</td>
 
-        <td>{{ l.dataVencimento }}</td>
-
-        <td>{{ l.valorDocumento | currency: 'BRL' }}</td>
-
-        <td>{{ l.pessoa?.nome }}</td>
-        <td>{{ l.centroCusto?.nome }}</td>
-
-        <td [class.credito]="l.tipoLancamento === 'CREDITO'"
-            [class.debito]="l.tipoLancamento === 'DEBITO'">
-          {{ l.tipoLancamento }}
-        </td>
-
-        <td>
-                        <span class="situacao-badge" [class.aberto]="l.situacao === 'ABERTO'" [class.baixado]="l.situacao === 'BAIXADO'">
-                            {{ l.situacao }}
-                        </span>
-        </td>
-
-        <td>
-          <a [routerLink]="['/editar-lancamento', l.id]" class="action-btn edit-btn">Editar</a>
-          <button (click)="excluirLancamento(l.id!)" class="action-btn delete-btn">
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+      <td class="actions">
+        <button (click)="editar(l.id)">Editar</button>
+        <button class="delete" (click)="excluir(l.id)">Excluir</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>

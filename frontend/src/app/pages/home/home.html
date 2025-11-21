@@ -1,15 +1,60 @@
-<div class="home-container">
-  <h2>Bem-vindo(a) ao MoneyMap!</h2>
-  <p>Selecione uma opção para começar a gerenciar suas finanças:</p>
+<html>
+<section class="home-container">
+  <h1>Bem-vindo</h1>
 
-  <div class="options-grid">
-    <a *ngFor="let opcao of opcoes"
-       [routerLink]="opcao.rota"
-       class="option-card">
-      <span class="option-icon">{{ opcao.icone }}</span>
-      <div class="option-name">{{ opcao.nome }}</div>
-    </a>
+  <div class="row">
+    <div class="card">
+      <div class="card-icon icon-lancamentos">＋</div>
+      <div class="card-body">
+        <h2>Lançamentos</h2>
+        <p>Crie, edite e gerencie seus lançamentos.</p>
+        <a routerLink="/lancamentos" class="btn">Abrir</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon icon-contas">💳</div>
+      <div class="card-body">
+        <h2>Contas</h2>
+        <p>Gerencie suas contas bancárias.</p>
+        <a routerLink="/contas" class="btn">Abrir</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon icon-centros">🕓</div>
+      <div class="card-body">
+        <h2>Centros de Custo</h2>
+        <p>Classifique seus lançamentos.</p>
+        <a routerLink="/centroCustos" class="btn">Abrir</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon icon-pessoas">👥</div>
+      <div class="card-body">
+        <h2>Pessoas</h2>
+        <p>Fornecedores e clientes.</p>
+        <a routerLink="/pessoas" class="btn">Abrir</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon icon-usuarios">👤</div>
+      <div class="card-body">
+        <h2>Usuários</h2>
+        <p>Gestão de usuários do sistema.</p>
+        <a routerLink="/usuarios" class="btn">Abrir</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon icon-metas">📊</div>
+      <div class="card-body">
+        <h2>Extrato</h2>
+        <p>Visualizando as entradas e saídas</p>
+        <a routerLink="/extrato" class="btn">Abrir</a>
+      </div>
+    </div>
   </div>
-
-  <button class="logout-btn">Sair</button>
-</div>
+</section>
+</html>

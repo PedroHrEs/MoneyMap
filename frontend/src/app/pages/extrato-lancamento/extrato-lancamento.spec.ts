@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LancamentoCadastro } from './lancamento-cadastro';
+import { ExtratoLancamento } from './extrato-lancamento';
 
-describe('LancamentoCadastro', () => {
-  let component: LancamentoCadastro;
-  let fixture: ComponentFixture<LancamentoCadastro>;
+describe('ExtratoLancamento', () => {
+  let component: ExtratoLancamento;
+  let fixture: ComponentFixture<ExtratoLancamento>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LancamentoCadastro]
+      imports: [ExtratoLancamento]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LancamentoCadastro);
+    fixture = TestBed.createComponent(ExtratoLancamento);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,41 +1,55 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class Login {
-  username = '';
-  password = '';
-  errorMessage = '';
+export class LoginComponent {
+  private readonly fb = inject(FormBuilder);
 
-  successMessage = '';
-  private redirectDelay = 2000;
+  form = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
-  constructor(private authService: AuthService, private router: Router) {}
+  loading = false;
+  error = '';
 
-  login() {
-    this.errorMessage = '';
-    this.successMessage = '';
+  constructor(private auth: AuthService, private router: Router) {}
 
-    this.authService.login(this.username, this.password).subscribe({
-          next: () => {
-            this.successMessage = 'Login Bem-Sucedido! Redirecionando...';
+  get isLogged() {
+    return this.auth.isLoggedIn();
+  }
 
-            setTimeout(() => {
-              this.router.navigate(['/home']);
-            }, this.redirectDelay);
-          },
-          error: () => {
-            this.errorMessage = 'Usuário ou senha incorretos';
-      }
+  onSubmit() {
+    if (this.form.invalid) return;
+
+    this.loading = true;
+    this.error = '';
+
+    this.auth.login(this.form.value as any).subscribe({
+      next: () => {
+        this.loading = false;
+        this.router.navigateByUrl('/home');
+      },
+      error: (err) => {
+        this.loading = false;
+        this.error =
+          err?.status === 401 || err?.status === 403
+            ? 'Credenciais inválidas'
+            : 'Falha no login';
+      },
     });
+  }
+
+  logout() {
+    this.auth.logout();
   }
 }

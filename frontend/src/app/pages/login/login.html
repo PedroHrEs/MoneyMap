@@ -1,21 +1,63 @@
+<html>
 <div class="login-container">
-  <h2>Login</h2>
+  <div class="login-card">
+    <div class="avatar-icon">👤</div>
+    <h1 class="h3">Entrar</h1>
 
-  <div *ngIf="successMessage" class="alert-success">
-    {{ successMessage }}
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Campo Usuário -->
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input
+          type="text"
+          formControlName="username"
+          placeholder="Email ou usuário"
+        />
+      </div>
+      <div
+        class="err"
+        *ngIf="form.controls.username.touched && form.controls.username.hasError('required')"
+      >
+        Informe o usuário
+      </div>
+
+      <!-- Campo Senha -->
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Senha"
+        />
+      </div>
+      <div
+        class="err"
+        *ngIf="form.controls.password.touched && form.controls.password.hasError('required')"
+      >
+        Informe a senha
+      </div>
+
+      <!-- Botão -->
+      <button class="btn-login" type="submit" [disabled]="loading || form.invalid">
+        {{ loading ? 'Entrando...' : 'Entrar' }}
+      </button>
+    </form>
+
+    <!-- Mensagem de erro -->
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <!-- Status de login -->
+    <div class="status" *ngIf="isLogged">
+      <small>Você já está logado.</small>
+      <button class="btn-login" type="button" (click)="logout()">Sair</button>
+    </div>
+
+    <!-- Links extras -->
+    <div class="login-links">
+      <p>Não tem conta?
+        <a routerLink="/cadastro" class="link-footer">Cadastre-se</a>
+      </p>
+    </div>
   </div>
-
-  <div *ngIf="errorMessage" class="alert-error">
-    {{ errorMessage }}
-  </div>
-
-  <form (ngSubmit)="login()">
-    <label for="username">Usuário</label>
-    <input type="text" id="username" [(ngModel)]="username" name="username" required>
-
-    <label for="password">Senha</label>
-    <input type="password" id="password" [(ngModel)]="password" name="password" required>
-
-    <button type="submit" [disabled]="!username || !password">Entrar</button>
-  </form>
 </div>
+</html>

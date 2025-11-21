@@ -1,18 +1,40 @@
 import { Routes } from '@angular/router';
-import { Login } from './pages/login/login';
-import { Home } from './pages/home/home';
-import { LancamentoList } from './pages/lancamento-list/lancamento-list';
-// 💡 Importar o novo componente
-import { LancamentoCadastro } from './pages/lancamento-cadastro/lancamento-cadastro';
+import { AuthGuard, jwtInterceptor } from './core/auth.guard';
 
 export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
 
-  { path: '', component: Login },
-  { path: 'home', component: Home },
-  { path: 'lancamentos', component: LancamentoList },
+  { path: 'login',
+    loadComponent: () => import('./pages/login/login').then(m => m.Login) },
 
-  // 💡 NOVA ROTA PARA CADASTRO
-  { path: 'cadastro-lancamento', component: LancamentoCadastro },
+  { path: 'home',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/home/home').then(m => m.Home) },
 
-  { path: '**', redirectTo: '' }
+  { path: 'lancamento',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/lancamento-list/lancamento-list').then(m => m.LancamentoList) },
+
+  { path: 'conta',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/conta-list/conta-list').then(m => m.ContaList) },
+
+  { path: 'pessoa',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/pessoa-list/pessoa-list').then(m => m.PessoaList) },
+
+  { path: 'usuario',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/usuario-list/usuario-list').then(m => m.UsuarioList) },
+
+  { path: 'centroCusto',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/centro-custo-list/centro-custo-list').then(m => m.CentroCustoList) },
+
+  { path: 'banco',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/banco-list/banco-list').then(m => m.BancoList) },
+
+  { path: '**', redirectTo: 'home' }
+
 ];
