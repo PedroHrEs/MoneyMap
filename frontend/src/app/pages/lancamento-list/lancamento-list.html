@@ -27,22 +27,22 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let l of lancamentos">
+    <tr *ngFor="let l of lancamentos()">
       <td>{{ l.id }}</td>
       <td>{{ l.descricao }}</td>
       <td>{{ l.parcela }}</td>
-      <td>{{ l.dataLancamento | date:'dd/MM/yyyy' }}</td>
-      <td>{{ l.dataVencimento | date:'dd/MM/yyyy' }}</td>
+      <td>{{ l.dataLancamentoISO | date:'dd/MM/yyyy' }}</td>
+      <td>{{ l.dataVencimentoISO | date:'dd/MM/yyyy' }}</td>
       <td>{{ l.valorDocumento | currency:'BRL' }}</td>
-      <td>{{ l.pessoa.razaoSocial }}</td>
-      <td>{{ l.conta.descricao }}</td>
-      <td>{{ l.centroCusto.descricao }}</td>
+      <td>{{ l.pessoa?.razaoSocial }}</td>
+      <td>{{ l.conta?.descricao }}</td>
+      <td>{{ l.centroCusto?.descricao }}</td>
       <td>{{ l.tipoLancamento }}</td>
       <td>{{ l.situacao }}</td>
 
       <td class="actions">
-        <button (click)="editar(l.id)">Editar</button>
-        <button class="delete" (click)="excluir(l.id)">Excluir</button>
+        <button (click)="atualizar(l.id)">Editar</button>
+        <button class="delete" (click)="remover(l.id)">Excluir</button>
       </td>
     </tr>
     </tbody>

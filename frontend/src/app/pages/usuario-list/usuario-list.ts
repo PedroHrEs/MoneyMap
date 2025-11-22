@@ -1,20 +1,20 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { UsuariosService, UsuarioDTO } from './services/usuario.service';
+import { UsuarioService, UsuarioDTO } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-usuario-list',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './usuarios.component.html',
+  templateUrl: './usuario-list.html',
   styles: [`
     :host { display:block; }
   `]
 })
 export class UsuarioList {
   private fb = inject(NonNullableFormBuilder);
-  private api = inject(UsuariosService);
+  private api = inject(UsuarioService);
 
   usuarios: UsuarioDTO[] = [];
   loading = false;

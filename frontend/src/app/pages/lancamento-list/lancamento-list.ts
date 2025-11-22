@@ -1,18 +1,20 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { LancamentoService, Lancamento, LancamentoPayload, IdNome } from './service/lancamento.service';
+import { LancamentoService, Lancamento, LancamentoPayload, IdNome } from '../../services/lancamento.service';
 
 @Component({
   selector: 'app-lancamento-list',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './lancamentos.component.html',
+  templateUrl: './lancamento-list.html',
   styles: [':host{display:block;}']
 })
 export class LancamentoList {
+  searchTerm: string = '';
+
   private fb = inject(NonNullableFormBuilder);
-  private api = inject(LancamentosService);
+  private api = inject(LancamentoService);
 
   lancamentos = signal<Lancamento[]>([]);
   filtro = signal('');
@@ -110,9 +112,10 @@ situacoes = ['Aberto', 'Baixado'] as const;
     });
   }
 
-  atualizar(id: number, dto: Partial<LancamentoPayload>) {
+  atualizar(id: number) {
     this.carregando.set(true); this.erro.set(null);
-    this.api.atualizar(id, dto).subscribe({
+    const payload = this.form.value;
+    this.api.atualizar(id, payload).subscribe({
       next: () => this.carregarTudo(),
       error: (err) => {
         const msg = err?.error?.message || err?.error?.error || err?.message || 'Falha ao atualizar';

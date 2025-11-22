@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { BancoService, Banco } from './services/banco.service';
+import { BancoService, Banco } from '../../services/banco.service';
 
 @Component({
   selector: 'app-banco-list',

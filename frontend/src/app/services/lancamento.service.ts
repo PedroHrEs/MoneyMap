@@ -15,32 +15,32 @@ export interface Lancamento {
   valorBaixado: number;
   tipoLancamento: string;
   situacao: string;
-  conta?: { id: number; descricao?: string };
-  pessoa?: { id: number; nome?: string; razaoSocial?: string };
-  centroCusto?: { id: number; descricao?: string };
+  conta?: { id: number; descricao: string };
+  pessoa?: { id: number; nome: string; razaoSocial: string };
+  centroCusto?: { id: number; descricao: string };
 }
 
 export interface LancamentoPayload {
-  descricao: string;
-  parcela: string;
-  dataLancamentoISO: string | null;
-  dataVencimentoISO: string | null;
-  dataBaixaISO: string | null;
-  valorDocumento: number;
-  valorBaixado: number;
-  tipoLancamento: string;
-  situacao: string;
-  contaId: number | null;
-  pessoaId: number | null;
-  centroCustoId: number | null;
+  descricao?: string;
+  parcela?: string;
+  dataLancamentoISO?: string | null;
+  dataVencimentoISO?: string | null;
+  dataBaixaISO?: string | null;
+  valorDocumento?: number;
+  valorBaixado?: number;
+  tipoLancamento?: string;
+  situacao?: string;
+  contaId?: number | null;
+  pessoaId?: number | null;
+  centroCustoId?: number | null;
 }
 
 @Injectable({ providedIn: 'root' })
-export class LancamentosService {
-  private readonly API = '/api/lancamentos';
-  private readonly API_CONTAS = '/api/contas';
-  private readonly API_PESSOAS = '/api/pessoas';
-  private readonly API_CENTROS = '/api/centroCustos'; // ajuste se o endpoint for outro
+export class LancamentoService {
+  private readonly API = 'http://localhost:8080/lancamento';
+  private readonly API_CONTAS = '/http://localhost:8080/conta';
+  private readonly API_PESSOAS = '/http://localhost:8080/pessoa';
+  private readonly API_CENTROS = '/http://localhost:8080/centrocusto'; // ajuste se o endpoint for outro
 
   constructor(private http: HttpClient) {}
 
@@ -62,7 +62,7 @@ export class LancamentosService {
     return this.http.post<any>(this.API, body).pipe(map(() => null));
   }
 
-atualizar(id: number, payload: Partial<LancamentoPayload>) {
+atualizar(id: number, payload: LancamentoPayload) {
   const body = this.toBackendBody(payload);
   return this.http.put<any>(`${this.API}/${id}`, body).pipe(map(() => null));
 }
@@ -145,7 +145,7 @@ private normalizeSituacao = (v?: string | null): string => {
 
       conta:        contaId ? { id: Number(contaId), descricao: x?.conta?.descricao ?? x?.conta?.nome ?? x?.conta?.razaoSocial } : undefined,
       centroCusto:  ccId    ? { id: Number(ccId),   descricao: x?.centroCusto?.descricao ?? x?.centroCusto?.nome } : undefined,
-      pessoa:     terId   ? { id: Number(terId),  nome: x?.pessoa?.nome ?? x?.pessoa?.razaoSocial } : undefined,
+      pessoa:     terId   ? { id: Number(terId), nome: x?.pessoa?.nome ?? '', razaoSocial: x?.pessoa?.razaoSocial ?? '' } : undefined,
     };
   };
 

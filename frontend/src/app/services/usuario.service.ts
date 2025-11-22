@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 
 
 export interface UsuarioDTO {
-  id?: number;
-  nome: string;
-  email: string;
-  senha?: string;
+  idUsuario: number;
+  nomeUsuario: string;
+  emailUsuario: string;
+  senhaUsuario: string;
   personType?: string[];
 }
 
 @Injectable({ providedIn: 'root' })
-export class UsuariosService {
-  private base = '/api/usuarios';
+export class UsuarioService {
+  private base = 'http://localhost:8080/usuario';
 
   constructor(private http: HttpClient) {}
 

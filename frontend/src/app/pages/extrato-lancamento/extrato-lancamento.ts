@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
-import { LancamentoService, Lancamento, IdNome } from '../services/lancamentos.service';
+import { LancamentoService, Lancamento, IdNome } from '../../services/lancamento.service';
 
 type Filtros = {
   descricao: string;
@@ -15,11 +15,11 @@ type Filtros = {
   selector: 'app-extrato-lancamentos',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './extrato-lancamentos.component.html',
+  templateUrl: './extrato-lancamento.html',
 })
-export class ExtratoLancamentos {
+export class ExtratoLancamento {
   private fb = inject(NonNullableFormBuilder);
-  private api = inject(LancamentosService);
+  private api = inject(LancamentoService);
 
   carregando = signal(false);
   erro = signal<string | null>(null);

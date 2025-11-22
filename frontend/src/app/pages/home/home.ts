@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LancamentosService, Lancamento, IdNome } from '../lancamentos/lancamentos.service';
+import { LancamentoService, Lancamento, IdNome } from '../../services/lancamento.service';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -12,8 +12,8 @@ import Chart from 'chart.js/auto';
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
-export class HomeComponent {
-  constructor(private api: LancamentosService) {}
+export class Home {
+  constructor(private api: LancamentoService) {}
 
   @ViewChild('gastosCentroChart') gastosCentroChart!: ElementRef<HTMLCanvasElement>;
   private chart?: Chart;

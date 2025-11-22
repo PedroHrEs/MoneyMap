@@ -2,16 +2,16 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
 })
-export class LoginComponent {
+export class Login {
   private readonly fb = inject(FormBuilder);
 
   form = this.fb.group({
@@ -34,6 +34,7 @@ export class LoginComponent {
     this.loading = true;
     this.error = '';
 
+    console.log('Payload enviado:', this.form.value);
     this.auth.login(this.form.value as any).subscribe({
       next: () => {
         this.loading = false;

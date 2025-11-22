@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { CentroCustoService, CentroCusto } from './services/centro-custo.service';
+import { CentroCustoService, CentroCusto } from '../../services/centro-custo.service';
 
 @Component({
   selector: 'app-centro-custo',
@@ -88,9 +88,9 @@ template: `
     :host { display:block; }
   `]
 })
-export class CentroCusto {
+export class CentroCustoList {
   private fb = inject(NonNullableFormBuilder);
-  private api = inject(CentroCustosService);
+  private api = inject(CentroCustoService);
 
   centroCustos: CentroCusto[] = [];
   loading = false;

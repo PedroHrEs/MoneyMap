@@ -10,26 +10,30 @@ export interface Conta {
   saldo: number;   // BigDecimal no back, number no front
   limite: number;  // BigDecimal no back, number no front
   tipoConta: string; // deve casar com o Enum do back (ex.: 'CORRENTE')
-  usuario?: { id: number; nome?: string };
-  banco?: { id: number; razaoSocial?: string };
+  agencia: string;
+  numero: number;
+  usuario: { idUsuario: number; nomeUsuario: string };
+  banco: { id: number; razaoSocial: string };
 }
 
 export interface ContaPayload {
-  descricao: string;
-  saldo: number;
-  limite: number;
-  tipoConta: string;
-  usuarioId: number | null;
-  bancoId: number | null;
+  descricao?: string;
+  saldo?: number;
+  limite?: number;
+  tipoConta?: string;
+  agencia?: string;
+  numero?: number;
+  usuarioId?: number | null;
+  bancoId?: number | null;
 }
 
 @Injectable({ providedIn: 'root' })
-export class ContasService {
-  private readonly API = '/api/contas';
+export class ContaService {
+  private readonly API = 'http://localhost:8080/conta';
 
   // endpoints para os combos
-  private readonly API_BANCOS = '/api/bancos';
-  private readonly API_USUARIOS = '/api/usuarios';
+  private readonly API_BANCOS = 'http://localhost:8080/banco';
+  private readonly API_USUARIOS = 'http://localhost:8080/usuario';
 
   constructor(private http: HttpClient) {}
 
@@ -48,7 +52,7 @@ criar(payload: ContaPayload) {
   return this.http.post<Conta>(this.API, body);
 }
 
-  atualizar(id: number, payload: Partial<ContaPayload>): Observable<Conta> {
+  atualizar(id: number, payload: ContaPayload): Observable<Conta> {
     const body = this.toBackendBody(payload);
     return this.http.put<Conta>(`${this.API}/${id}`, body);
   }

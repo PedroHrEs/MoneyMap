@@ -23,7 +23,7 @@
     </thead>
 
     <tbody>
-    <tr *ngFor="let conta of contas">
+    <tr *ngFor="let conta of contas()">
       <td>{{ conta.id }}</td>
       <td>{{ conta.descricao }}</td>
       <td>{{ conta.tipoConta }}</td>
@@ -33,8 +33,8 @@
       <td>{{ conta.banco.razaoSocial }}</td>
 
       <td class="actions">
-        <button (click)="editar(conta.id)">Editar</button>
-        <button class="delete" (click)="excluir(conta.id)">Excluir</button>
+        <button (click)="atualizar(conta.id)">Editar</button>
+        <button class="delete" (click)="remover(conta.id)">Excluir</button>
       </td>
     </tr>
     </tbody>

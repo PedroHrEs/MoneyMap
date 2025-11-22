@@ -61,12 +61,12 @@
           </thead>
           <tbody>
           <tr *ngFor="let u of usuarios">
-            <td class="text-muted">#{{ u.id }}</td>
+            <td class="text-muted">#{{ u.idUsuario }}</td>
             <td>
-              <input [value]="u.nome" #nome class="form-control form-control-sm" />
+              <input [value]="u.nomeUsuario" #nome class="form-control form-control-sm" />
             </td>
             <td>
-              <input [value]="u.email" #email class="form-control form-control-sm" />
+              <input [value]="u.emailUsuario" #email class="form-control form-control-sm" />
             </td>
             <td>
                 <span class="badge bg-secondary me-1" *ngFor="let role of u.personType">
@@ -79,12 +79,12 @@
                      placeholder="Nova senha (opcional)"
                      class="form-control form-control-sm mb-1" />
               <button class="btn btn-sm btn-success me-2"
-                      (click)="atualizar(u.id!, { id: u.id, nome: nome.value, email: email.value, senha: senhaNova.value, personType: u.personType });"
+                      (click)="atualizar(u.idUsuario!, { idUsuario: u.idUsuario, nomeUsuario: nome.value, emailUsuario: email.value, senhaUsuario: senhaNova.value, personType: u.personType });"
                       [disabled]="loading">
                 Salvar
               </button>
               <button class="btn btn-sm btn-outline-danger"
-                      (click)="remover(u.id!)"
+                      (click)="remover(u.idUsuario!)"
                       [disabled]="loading">
                 Excluir
               </button>

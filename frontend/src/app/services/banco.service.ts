@@ -9,7 +9,7 @@ export interface Banco {
 
 @Injectable({ providedIn: 'root' })
 export class BancoService {
-  private readonly API = '/api/bancos';
+  private readonly API = 'http://localhost:8080/banco';
 
   constructor(private http: HttpClient) {}
 

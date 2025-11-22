@@ -1,18 +1,20 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { ContasService, Conta, IdNome, ContaPayload } from './services/conta.service';
+import { ContaService, Conta, IdNome, ContaPayload } from '../../services/conta.service';
 
 @Component({
   selector: 'app-contas',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './conta-list/conta-list.html',
+  templateUrl: './conta-list.html',
   styles: [':host{display:block;}']
 })
-export class Conta {
+export class ContaList {
+  searchTerm: string = '';
+
   private fb = inject(NonNullableFormBuilder);
-  private api = inject(ContasService);
+  private api = inject(ContaService);
 
   // tabela
   contas = signal<Conta[]>([]);
@@ -35,7 +37,9 @@ form = this.fb.group({
   descricao: ['', Validators.required],
   saldo: [0 as number, Validators.required],
   limite: [0 as number, Validators.required],
-  tipoConta: [this.tiposConta[0].value, Validators.required],  // << aqui
+  tipoConta: [this.tiposConta[0].value, Validators.required],
+  agencia: ['', Validators.required],
+  numero: [0 as number, Validators.required],
   usuarioId: [null as number | null],
   bancoId: [null as number | null],
 });
@@ -48,6 +52,8 @@ form = this.fb.group({
       (c.descricao ?? '').toLowerCase().includes(f) ||
       String(c.saldo ?? '').toLowerCase().includes(f) ||
       String(c.limite ?? '').toLowerCase().includes(f) ||
+      String(c.agencia ?? '').toLowerCase().includes(f) ||
+      String(c.numero ?? '').toLowerCase().includes(f) ||
       (c.tipoConta ?? '').toLowerCase().includes(f)
     );
   });
@@ -81,7 +87,7 @@ form = this.fb.group({
   this.api.criar(payload).subscribe({
     next: () => {
       this.form.reset({
-        descricao: '', saldo: 0, limite: 0, tipoConta: this.tiposConta[0].value,
+        descricao: '', saldo: 0, limite: 0, tipoConta: this.tiposConta[0].value, agencia: '', numero: 0,
         usuarioId: null, bancoId: null
       });
       this.carregarTudo();
@@ -96,10 +102,11 @@ form = this.fb.group({
 }
 
 
-  atualizar(id: number, dto: Partial<ContaPayload>) {
+  atualizar(id: number) {
     this.carregando.set(true);
     this.erro.set(null);
-    this.api.atualizar(id, dto).subscribe({
+    const payload = this.form.value;
+    this.api.atualizar(id, payload).subscribe({
       next: () => this.carregarTudo(),
       error: () => { this.erro.set('Falha ao atualizar conta'); this.carregando.set(false); }
     });

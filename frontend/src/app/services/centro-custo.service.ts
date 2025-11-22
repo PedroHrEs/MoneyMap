@@ -9,7 +9,7 @@ export interface CentroCusto {
 
 @Injectable({ providedIn: 'root' })
 export class CentroCustoService {
-  private readonly API = '/api/centroCustos';
+  private readonly API = 'http://localhost:8080/centrocusto';
 
   constructor(private http: HttpClient) {}
 

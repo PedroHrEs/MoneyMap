@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard, jwtInterceptor } from './core/auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -34,6 +34,10 @@ export const routes: Routes = [
   { path: 'banco',
     canActivate: [AuthGuard],
     loadComponent: () => import('./pages/banco-list/banco-list').then(m => m.BancoList) },
+
+  { path: 'extrato', loadComponent: () =>
+      import('./pages/extrato-lancamento/extrato-lancamento')
+        .then(m => m.ExtratoLancamento) },
 
   { path: '**', redirectTo: 'home' }
 

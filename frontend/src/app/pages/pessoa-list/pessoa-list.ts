@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { PessoasService, Pessoa } from './services/pessoa.service';
+import { PessoaService, Pessoa } from '../../services/pessoa.service';
 
 @Component({
   selector: 'app-pessoa-list',
@@ -90,7 +90,7 @@ template: `
 })
 export class PessoaList {
   private fb = inject(NonNullableFormBuilder);
-  private api = inject(PessoasService);
+  private api = inject(PessoaService);
 
   Pessoas: Pessoa[] = [];
   loading = false;
