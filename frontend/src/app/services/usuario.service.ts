@@ -8,7 +8,6 @@ export interface UsuarioDTO {
   nomeUsuario: string;
   emailUsuario: string;
   senhaUsuario: string;
-  personType?: string[];
 }
 
 @Injectable({ providedIn: 'root' })

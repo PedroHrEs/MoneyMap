@@ -1,28 +1,60 @@
-/* ===== Layout Geral ===== */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
+.page-container {
+  padding: 20px;
 }
 
-/* ===== TÍTULO E TOPO ===== */
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
+.table-container {
+  margin-top: 20px;
 }
 
-.page-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 0;
+.table-title {
+  font-size: 22px;
+  margin-bottom: 10px;
 }
 
-/* ===== CAMPO DE FILTRO ===== */
-.filter-input {
-  width: 50%;
-  min-width: 230px;
+form {
+  max-width: 400px;
+}
+
+form div {
+  margin-bottom: 12px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 8px;
   border-radius: 6px;
   border: 1px solid #ced4da;
-  padding:
+}
+
+button {
+  padding: 10px 16px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .page-container {
+    padding: 10px;
+  }
+
+  form div {
+    margin-bottom: 8px;
+  }
+
+  form button {
+    width: 100%;
+  }
 }

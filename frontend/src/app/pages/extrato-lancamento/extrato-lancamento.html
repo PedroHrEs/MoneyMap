@@ -28,7 +28,7 @@
           <select id="fConta" class="form-select" formControlName="contaId">
             <option [ngValue]="null">– Conta –</option>
             <option *ngFor="let c of contas()" [ngValue]="c.id">
-              {{ c.descricao || c.nome || ('#' + c.id) }}
+              {{ c.descricao || ('#' + c.id) }}
             </option>
           </select>
         </div>
@@ -55,7 +55,7 @@
 
   <div class="card shadow-sm">
     <div class="table-responsive">
-      <table class="table align-middle mb-0">
+      <table class="table table-striped table-hover table-modern">
         <thead class="table-light">
         <tr>
           <th>#</th>

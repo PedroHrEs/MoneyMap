@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
-import { LancamentoService, Lancamento, IdNome } from '../../services/lancamento.service';
+import { LancamentoService, Lancamento, IdNomeConta, IdNomePessoa, IdNomeCentroCusto } from '../../services/lancamento.service';
 
 type Filtros = {
   descricao: string;
@@ -16,6 +16,7 @@ type Filtros = {
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './extrato-lancamento.html',
+  styleUrls: ['./extrato-lancamento.css']
 })
 export class ExtratoLancamento {
   private fb = inject(NonNullableFormBuilder);
@@ -24,9 +25,9 @@ export class ExtratoLancamento {
   carregando = signal(false);
   erro = signal<string | null>(null);
 
-  centros = signal<IdNome[]>([]);
+  centros = signal<IdNomeCentroCusto[]>([]);
   todos = signal<Lancamento[]>([]);
-  contas = signal<IdNome[]>([]);
+  contas = signal<IdNomeConta[]>([]);
 
 form = this.fb.group({
   descricao: [''],

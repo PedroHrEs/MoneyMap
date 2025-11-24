@@ -1,1 +1,147 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================== */
+/*  BASE PARA TODAS AS LISTAS     */
+/* ============================== */
+
+.page-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.page-header h1 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+/* Botões */
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background-color: #0066ff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #004fcc;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #b52b27;
+}
+
+/* Inputs */
+input, select {
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 300px;
+}
+
+
+/* ============================== */
+/*        TABELAS                 */
+/* ============================== */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;  /* 🔥 Responsivo */
+    -webkit-overflow-scrolling: touch;
+    margin-top: 16px;
+    border-radius: 6px;
+    border: 1px solid #e1e1e1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px; /* 🔥 Evita quebra no mobile */
+}
+
+table thead {
+    background-color: #f3f3f3;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+}
+
+table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Coluna Ações */
+.table-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* ============================== */
+/*     RESPONSIVIDADE EXTRA       */
+/* ============================== */
+
+@media (max-width: 768px) {
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .table-actions {
+        flex-direction: column;
+    }
+}
+
+/* ============================== */
+/*   ESTILO GERAL DO SISTEMA     */
+/* ============================== */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* LINKS */
+a {
+    color: #0066ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

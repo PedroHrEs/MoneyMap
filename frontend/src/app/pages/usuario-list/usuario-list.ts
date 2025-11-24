@@ -8,9 +8,7 @@ import { UsuarioService, UsuarioDTO } from '../../services/usuario.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './usuario-list.html',
-  styles: [`
-    :host { display:block; }
-  `]
+  styleUrls: ['./usuario-list.css']
 })
 export class UsuarioList {
   private fb = inject(NonNullableFormBuilder);
@@ -21,10 +19,9 @@ export class UsuarioList {
   error = '';
 
   form = this.fb.group({
-    nome: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    senha: [''],
-    personType: this.fb.control<string[]>(['USER'])
+    nomeUsuario: ['', [Validators.required]],
+    emailUsuario: ['', [Validators.required, Validators.email]],
+    senhaUsuario: ['']
   });
 
   ngOnInit() { this.carregar(); }
@@ -41,7 +38,7 @@ export class UsuarioList {
     if (this.form.invalid) return;
     this.loading = true; this.error = '';
     this.api.create(this.form.value as UsuarioDTO).subscribe({
-      next: () => { this.form.reset({ personType: ['USER'] }); this.carregar(); },
+      next: () => { this.form.reset(); this.carregar(); },
       error: () => { this.error = 'Falha ao criar'; this.loading = false; }
     });
   }

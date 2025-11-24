@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LancamentoService, Lancamento, IdNome } from '../../services/lancamento.service';
+import { LancamentoService, Lancamento, IdNomeConta, IdNomePessoa, IdNomeCentroCusto } from '../../services/lancamento.service';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -19,7 +19,7 @@ export class Home {
   private chart?: Chart;
 
   lancs: Lancamento[] = [];
-  contas: IdNome[] = [];
+  contas: IdNomeConta[] = [];
 
   contaId: number | null = null;
   de = '';  // yyyy-MM-dd

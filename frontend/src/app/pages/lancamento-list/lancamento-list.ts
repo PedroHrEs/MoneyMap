@@ -1,18 +1,16 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { LancamentoService, Lancamento, LancamentoPayload, IdNome } from '../../services/lancamento.service';
+import { LancamentoService, Lancamento, LancamentoPayload, IdNomeConta, IdNomePessoa, IdNomeCentroCusto } from '../../services/lancamento.service';
 
 @Component({
   selector: 'app-lancamento-list',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './lancamento-list.html',
-  styles: [':host{display:block;}']
+  styleUrls: ['./lancamento-list.css']
 })
 export class LancamentoList {
-  searchTerm: string = '';
-
   private fb = inject(NonNullableFormBuilder);
   private api = inject(LancamentoService);
 
@@ -21,9 +19,9 @@ export class LancamentoList {
   carregando = signal(false);
   erro = signal<string | null>(null);
 
-  contas = signal<IdNome[]>([]);
-  pessoas = signal<IdNome[]>([]);
-  centros = signal<IdNome[]>([]);
+  contas = signal<IdNomeConta[]>([]);
+  pessoas = signal<IdNomePessoa[]>([]);
+  centros = signal<IdNomeCentroCusto[]>([]);
 
 tipos = ['Debito', 'Credito'] as const;
 situacoes = ['Aberto', 'Baixado'] as const;
@@ -61,7 +59,7 @@ situacoes = ['Aberto', 'Baixado'] as const;
       String(l.valorDocumento ?? '').toLowerCase().includes(f) ||
       (l.conta?.descricao ?? '').toLowerCase().includes(f) ||
       (l.centroCusto?.descricao ?? '').toLowerCase().includes(f) ||
-      (l.pessoa?.nome ?? l.pessoa?.razaoSocial ?? '').toLowerCase().includes(f)
+      (l.pessoa?.razaoSocial ?? '').toLowerCase().includes(f)
     );
   });
 
@@ -112,10 +110,9 @@ situacoes = ['Aberto', 'Baixado'] as const;
     });
   }
 
-  atualizar(id: number) {
+  atualizar(id: number, dto: Partial<LancamentoPayload>) {
     this.carregando.set(true); this.erro.set(null);
-    const payload = this.form.value;
-    this.api.atualizar(id, payload).subscribe({
+    this.api.atualizar(id, dto).subscribe({
       next: () => this.carregarTudo(),
       error: (err) => {
         const msg = err?.error?.message || err?.error?.error || err?.message || 'Falha ao atualizar';

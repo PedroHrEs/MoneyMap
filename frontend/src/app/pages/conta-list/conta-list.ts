@@ -8,11 +8,9 @@ import { ContaService, Conta, IdNome, ContaPayload } from '../../services/conta.
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './conta-list.html',
-  styles: [':host{display:block;}']
+  styleUrls: ['./conta-list.css']
 })
 export class ContaList {
-  searchTerm: string = '';
-
   private fb = inject(NonNullableFormBuilder);
   private api = inject(ContaService);
 
@@ -23,13 +21,13 @@ export class ContaList {
   erro = signal<string | null>(null);
 
   bancos = signal<IdNome[]>([]);
-  usuarios = signal<IdNome[]>([]);
+
 
   tiposConta = [
   { value: 'CONTA_CORRENTE',     label: 'Conta Corrente' },
   { value: 'CONTA_INVESTIMENTO', label: 'Conta Investimento' },
-  { value: 'CARTAO_CREDITO',     label: 'Cartão de Crédito' },
-  { value: 'CARTAO_ALIMENTACAO', label: 'Cartão Alimentação' },
+  { value: 'CARTAO_DE_CREDITO',     label: 'Cartão de Crédito' },
+  { value: 'ALIMENTACAO', label: 'Cartão Alimentação' },
   { value: 'POUPANCA',           label: 'Poupança' },
 ] as const;
 
@@ -37,11 +35,10 @@ form = this.fb.group({
   descricao: ['', Validators.required],
   saldo: [0 as number, Validators.required],
   limite: [0 as number, Validators.required],
-  tipoConta: [this.tiposConta[0].value, Validators.required],
   agencia: ['', Validators.required],
-  numero: [0 as number, Validators.required],
-  usuarioId: [null as number | null],
-  bancoId: [null as number | null],
+  numero: ['', Validators.required],
+  tipoConta: [this.tiposConta[0].value, Validators.required],// << aqui
+  bancoId: [null as number | null, Validators.required],
 });
 
   contasFiltradas = computed(() => {
@@ -52,8 +49,8 @@ form = this.fb.group({
       (c.descricao ?? '').toLowerCase().includes(f) ||
       String(c.saldo ?? '').toLowerCase().includes(f) ||
       String(c.limite ?? '').toLowerCase().includes(f) ||
-      String(c.agencia ?? '').toLowerCase().includes(f) ||
-      String(c.numero ?? '').toLowerCase().includes(f) ||
+      (c.agencia ?? '').toLowerCase().includes(f) ||
+      (c.numero ?? '').toLowerCase().includes(f) ||
       (c.tipoConta ?? '').toLowerCase().includes(f)
     );
   });
@@ -72,7 +69,6 @@ form = this.fb.group({
     });
     // carrega combos (em paralelo)
     this.api.listarBancos().subscribe({ next: (b) => this.bancos.set(b ?? []) });
-    this.api.listarUsuarios().subscribe({ next: (u) => this.usuarios.set(u ?? []) });
   }
 
   criar() {
@@ -87,8 +83,7 @@ form = this.fb.group({
   this.api.criar(payload).subscribe({
     next: () => {
       this.form.reset({
-        descricao: '', saldo: 0, limite: 0, tipoConta: this.tiposConta[0].value, agencia: '', numero: 0,
-        usuarioId: null, bancoId: null
+        descricao: '', saldo: 0, limite: 0, agencia: '', numero: '', tipoConta: this.tiposConta[0].value, bancoId: null
       });
       this.carregarTudo();
     },
@@ -102,11 +97,10 @@ form = this.fb.group({
 }
 
 
-  atualizar(id: number) {
+  atualizar(id: number, dto: Partial<ContaPayload>) {
     this.carregando.set(true);
     this.erro.set(null);
-    const payload = this.form.value;
-    this.api.atualizar(id, payload).subscribe({
+    this.api.atualizar(id, dto).subscribe({
       next: () => this.carregarTudo(),
       error: () => { this.erro.set('Falha ao atualizar conta'); this.carregando.set(false); }
     });
