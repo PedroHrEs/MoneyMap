@@ -8,7 +8,7 @@ import { LancamentoService, Lancamento, LancamentoPayload, IdNomeConta, IdNomePe
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './lancamento-list.html',
-  styleUrls: ['./lancamento-list.css']
+
 })
 export class LancamentoList {
   private fb = inject(NonNullableFormBuilder);
